@@ -76,36 +76,47 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"/>
 
-    <TextView
-        android:id="@+id/tvDontHaveAnAccount"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutRegisterHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't have an account?"
-        android:textColor="#DFDFDF"
-        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/btnLogin"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="72dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
 
-    <TextView
-        android:id="@+id/tvRegisterHere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register here"
-        android:textColor="#4CB963"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintStart_toEndOf="@id/tvDontHaveAnAccount"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="4dp"/>
+        <TextView
+            android:id="@+id/tvDontHaveAnAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?"
+            android:textColor="#DFDFDF"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvRegisterHere"
+            app:layout_constraintHorizontal_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/tvRegisterHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register here"
+            android:textColor="#4CB963"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="@id/tvDontHaveAnAccount"
+            app:layout_constraintStart_toEndOf="@id/tvDontHaveAnAccount"
+            app:layout_constraintBottom_toBottomOf="@id/tvDontHaveAnAccount"
+            android:layout_marginStart="4dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutGoogleAndFacebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        android:layout_marginTop="86dp">
+        app:layout_constraintTop_toBottomOf="@id/btnLogin">
 
         <ImageButton
             android:id="@+id/btnGoogle"
@@ -116,7 +127,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnFacebook" />
+            app:layout_constraintEnd_toStartOf="@+id/btnFacebook"
+            android:layout_marginTop="85dp"/>
 
         <ImageButton
             android:id="@+id/btnFacebook"
@@ -128,18 +140,18 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btnGoogle"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            android:layout_marginTop="85dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/pbLogin"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintTop_toBottomOf="@id/layoutGoogleAndFacebook"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="15dp"
         android:visibility="invisible"/>
 
 
