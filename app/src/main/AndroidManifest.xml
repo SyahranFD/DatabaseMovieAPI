@@ -15,6 +15,13 @@
         android:theme="@style/Theme.DatabaseMovieAPI"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterPage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".DetailMovie"
             android:exported="false">
             <meta-data

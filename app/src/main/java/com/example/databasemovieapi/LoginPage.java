@@ -62,7 +62,6 @@ public class LoginPage extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         pbLogin = findViewById(R.id.pbLogin);
         btnGoogle = findViewById(R.id.btnGoogle);
-        btnFacebook = findViewById(R.id.btnFacebook);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
