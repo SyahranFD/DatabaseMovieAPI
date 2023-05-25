@@ -93,7 +93,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         holder.tvMovieYear.setText(contact.getMovieYear());
         holder.tvMovieRate.setText(contact.getMovieRate());
 
-        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/w500" + contact.getImgPoster()).into(holder.ivPoster);
+        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/original" + contact.getImgPoster()).into(holder.ivPoster);
 
     }
 

@@ -10,13 +10,16 @@ public class MovieModel implements Parcelable {
     private String movieYear;
     private String movieRate;
     private String imgPoster;
-
+    private String imgBackdrop;
+    private String movieDescription;
 
     protected MovieModel(Parcel in) {
         movieName = in.readString();
         movieYear = in.readString();
         movieRate = in.readString();
         imgPoster = in.readString();
+        imgBackdrop = in.readString();
+        movieDescription = in.readString();
     }
 
     MovieModel() {
@@ -67,6 +70,22 @@ public class MovieModel implements Parcelable {
         this.movieRate = movieRate;
     }
 
+    public String getImgBackdrop() {
+        return imgBackdrop;
+    }
+
+    public void setImgBackdrop(String imgBackdrop) {
+        this.imgBackdrop = imgBackdrop;
+    }
+
+    public String getMovieDescription() {
+        return movieDescription;
+    }
+
+    public void setMovieDescription(String movieDescription) {
+        this.movieDescription = movieDescription;
+    }
+
 
     @Override
     public int describeContents() {
@@ -79,5 +98,7 @@ public class MovieModel implements Parcelable {
         dest.writeString(movieYear);
         dest.writeString(movieRate);
         dest.writeString(imgPoster);
+        dest.writeString(imgBackdrop);
+        dest.writeString(movieDescription);
     }
 }

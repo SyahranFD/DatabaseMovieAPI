@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,30 +25,37 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginPage extends AppCompatActivity {
 
-    EditText etUsername, etPassword;
-    MaterialButton btnLogin;
-    ProgressBar pbLogin;
-    ImageButton btnGoogle, btnFacebook;
-
+    private static final String TAG = "LoginPage";
     private static final int RC_SIGN_IN_GOOGLE = 123;
+
+    private EditText etUsername, etPassword;
+    private MaterialButton btnLogin;
+    private ProgressBar pbLogin;
+    private ImageButton btnGoogle;
+    private ImageButton btnFacebook;
+
     private GoogleSignInClient mGoogleSignInClient;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
@@ -85,7 +93,7 @@ public class LoginPage extends AppCompatActivity {
                                         if (status) {
                                             Toast.makeText(getApplicationContext(), "Sukses Login", Toast.LENGTH_SHORT).show();
 
-                                            Intent calculator = new Intent(LoginPage.this, MainActivity.class);
+                                            Intent calculator = new Intent(LoginPage.this, ListMovieNameActivity.class);
                                             startActivity(calculator);
                                             finish();
 
@@ -115,6 +123,15 @@ public class LoginPage extends AppCompatActivity {
                 signInWithGoogle();
             }
         });
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            // User is already logged in, redirect to ListMovieNameActivity
+            Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        Log.d(TAG, "Current user: " + currentUser);
     }
 
     private void signInWithGoogle() {
