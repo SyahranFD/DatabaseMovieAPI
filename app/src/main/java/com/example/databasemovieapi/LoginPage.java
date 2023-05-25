@@ -1,10 +1,7 @@
 package com.example.databasemovieapi;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -40,7 +38,7 @@ public class LoginPage extends AppCompatActivity {
     private MaterialButton btnLogin;
     private ProgressBar pbLogin;
     private ImageButton btnGoogle;
-    private ImageButton btnFacebook;
+    private TextView tvRegisterHere;
 
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth firebaseAuth;
@@ -59,9 +57,19 @@ public class LoginPage extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        pbLogin = findViewById(R.id.pbLogin);
+        btnLogin = findViewById(R.id.btnRegister);
+        pbLogin = findViewById(R.id.pbRegister);
         btnGoogle = findViewById(R.id.btnGoogle);
+        tvRegisterHere = findViewById(R.id.tvRegisterHere);
+
+        tvRegisterHere.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginPage.this, RegisterPage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
