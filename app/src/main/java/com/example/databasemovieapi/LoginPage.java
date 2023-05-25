@@ -5,14 +5,12 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
@@ -141,7 +139,7 @@ public class LoginPage extends AppCompatActivity {
             String name = account.getDisplayName();
             String email = account.getEmail();
             // ...
-            Intent intent = new Intent(LoginPage.this, MainActivity.class);
+            Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
             startActivity(intent);
 
             // Finish MainActivity if needed
