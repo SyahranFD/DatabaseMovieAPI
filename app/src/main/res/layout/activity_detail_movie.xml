@@ -7,6 +7,7 @@
     android:background="#222222"
     tools:context=".DetailMovie">
 
+
     <ImageView
         android:id="@+id/ivBackdropDetail"
         android:scaleType="centerCrop"
@@ -16,6 +17,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:src="@color/black"/>
+
+    <ImageView
+        android:id="@+id/btnArrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
 
     <ImageView
         android:id="@+id/ivPosterDetail"
@@ -30,7 +41,7 @@
 
     <TextView
         android:id="@+id/tvMovieNameDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/ivPosterDetail"
         app:layout_constraintTop_toBottomOf="@id/ivBackdropDetail"
@@ -57,10 +68,10 @@
         android:id="@+id/constrainRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBackdropDetail"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="25dp">
+        app:layout_constraintStart_toStartOf="@id/ivPosterDetail"
+        app:layout_constraintEnd_toEndOf="@id/ivPosterDetail"
+        app:layout_constraintTop_toBottomOf="@id/ivPosterDetail"
+        android:layout_marginTop="15dp">
 
         <ImageView
             android:id="@+id/starRating"
@@ -87,12 +98,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/tvDescriptionDetail"
+        android:id="@+id/tvMovieDescriptionDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivPosterDetail"
+        app:layout_constraintTop_toBottomOf="@id/constrainRating"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginTop="25dp"
