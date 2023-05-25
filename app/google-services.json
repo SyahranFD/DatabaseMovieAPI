@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "416242613720",
+    "project_id": "databasemovieapi",
+    "storage_bucket": "databasemovieapi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416242613720:android:7cd5478eeeba1daaebc6ad",
+        "android_client_info": {
+          "package_name": "com.example.databasemovieapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416242613720-19qvpdp7he3esuje9nh3pqsko6ievf2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.databasemovieapi",
+            "certificate_hash": "14028b797b88a0be168446cabd6299d9458bde3e"
+          }
+        },
+        {
+          "client_id": "416242613720-9caubpoi5durvusfdeuprjt496jncckn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdtM9C0jZCKTRCPP0ZbZyQRtw5wECEe2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416242613720-9caubpoi5durvusfdeuprjt496jncckn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
