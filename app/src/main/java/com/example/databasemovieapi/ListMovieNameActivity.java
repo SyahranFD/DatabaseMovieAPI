@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 
 public class ListMovieNameActivity extends AppCompatActivity implements MovieAdapter.MoviesAdapterListener {
     RecyclerView rvMovie;
-    ArrayList<MovieModel> listDataEPLTeams;
+    ArrayList<MovieModel> listDataMovie;
     private MovieAdapter adapterListMovie;
     ProgressBar pbMovie;
     private Toolbar toolbar;
@@ -55,11 +54,13 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
                                 myMovie.setMovieYear(jsonTeam.getString("release_date"));
                                 myMovie.setMovieRate(jsonTeam.getString("vote_average"));
                                 myMovie.setImgPoster(jsonTeam.getString("poster_path"));
+                                myMovie.setImgBackdrop(jsonTeam.getString("backdrop_path"));
+                                myMovie.setMovieDescription(jsonTeam.getString("overview"));
 
-                                listDataEPLTeams.add(myMovie);
+                                listDataMovie.add(myMovie);
                             }
 
-                            adapterListMovie = new MovieAdapter(getApplicationContext(), listDataEPLTeams, ListMovieNameActivity.this);
+                            adapterListMovie = new MovieAdapter(getApplicationContext(), listDataMovie, ListMovieNameActivity.this);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
                             rvMovie.setHasFixedSize(true);
                             rvMovie.setLayoutManager(mLayoutManager);
@@ -86,7 +87,7 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_movie_name);
 
-        listDataEPLTeams = new ArrayList<>();
+        listDataMovie = new ArrayList<>();
         pbMovie = findViewById(R.id.pbMovie);
         getEPLOnline();
 
@@ -98,12 +99,10 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
 
 
     @Override
-    public void onMovieSelected(MovieModel team) {
-//        Intent intent = new Intent(ListMovieName.this, DetailTeamPage.class);
-//        intent.putExtra("myteam", team);
-//        startActivity(intent);
-        MovieModel myMovie = new MovieModel();
-        Toast.makeText(this, "Anda memilih film: " + myMovie.getMovieName(), Toast.LENGTH_SHORT).show();
+    public void onMovieSelected(MovieModel movie) {
+        Intent intent = new Intent(ListMovieNameActivity.this, DetailMovie.class);
+        intent.putExtra("myMovie", movie);
+        startActivity(intent);
     }
 
     @Override
