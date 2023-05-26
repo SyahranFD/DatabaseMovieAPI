@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
 
@@ -86,12 +90,27 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MyViewHolder holder, int position) {
-        final MovieModel contact = this.movieList.get(position);
-        holder.tvMovieName.setText(contact.getMovieName());
-        holder.tvMovieYear.setText(contact.getMovieYear());
-        holder.tvMovieRate.setText(contact.getMovieRate());
+        final MovieModel movie = this.movieList.get(position);
+        holder.tvMovieName.setText(movie.getMovieName());
+        holder.tvMovieRate.setText(movie.getMovieRate());
 
-        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/original" + contact.getImgPoster()).into(holder.ivPoster);
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+
+        try {
+            // Mengubah string tanggal menjadi objek Date
+            Date date = inputFormat.parse(movie.getMovieYear());
+
+            // Mengubah format tanggal ke yang diinginkan
+            String formattedDate = outputFormat.format(date);
+
+            // Menampilkan tanggal yang telah diformat ke TextView
+            holder.tvMovieYear.setText(formattedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Glide.with(holder.itemView.getContext()).load("https://image.tmdb.org/t/p/original" + movie.getImgPoster()).into(holder.ivPoster);
 
     }
 

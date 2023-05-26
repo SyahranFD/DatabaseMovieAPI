@@ -23,7 +23,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ListMovieNameActivity extends AppCompatActivity implements MovieAdapter.MoviesAdapterListener {
     RecyclerView rvMovie;
@@ -100,8 +104,21 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
 
     @Override
     public void onMovieSelected(MovieModel movie) {
+        String releaseDate = movie.getMovieYear();
+
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+
+        try {
+            Date date = inputFormat.parse(releaseDate);
+            releaseDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent(ListMovieNameActivity.this, DetailMovie.class);
         intent.putExtra("myMovie", movie);
+        intent.putExtra("release_date", releaseDate);
         startActivity(intent);
     }
 
