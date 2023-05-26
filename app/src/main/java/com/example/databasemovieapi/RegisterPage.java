@@ -31,7 +31,7 @@ import org.json.JSONObject;
 
 public class RegisterPage extends AppCompatActivity {
 
-    private static final String TAG = "LoginPage";
+    private static final String TAG = "RegisterPage";
     private static final int RC_SIGN_IN_GOOGLE = 123;
 
     private EditText etUsername, etPassword, etFullName, etEmail;
@@ -106,8 +106,8 @@ public class RegisterPage extends AppCompatActivity {
                                         if (status) {
                                             Toast.makeText(getApplicationContext(), "Sukses Register", Toast.LENGTH_SHORT).show();
 
-                                            Intent calculator = new Intent(RegisterPage.this, LoginPage.class);
-                                            startActivity(calculator);
+                                            Intent loginPage = new Intent(RegisterPage.this, LoginPage.class);
+                                            startActivity(loginPage);
                                             finish();
 
                                         } else {
@@ -139,7 +139,6 @@ public class RegisterPage extends AppCompatActivity {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            // User is already logged in, redirect to ListMovieNameActivity
             Intent intent = new Intent(RegisterPage.this, ListMovieNameActivity.class);
             startActivity(intent);
             finish();
@@ -165,17 +164,14 @@ public class RegisterPage extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Sign-in was successful, you can retrieve user details from the account object
             String name = account.getDisplayName();
             String email = account.getEmail();
-            // ...
+
             Intent intent = new Intent(RegisterPage.this, ListMovieNameActivity.class);
             startActivity(intent);
 
-            // Finish MainActivity if needed
             finish();
         } catch (ApiException e) {
-            // Sign-in failed, handle the exception
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }

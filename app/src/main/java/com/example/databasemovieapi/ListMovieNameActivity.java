@@ -34,7 +34,7 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
     private FirebaseAuth firebaseAuth;
 
 
-    public void getEPLOnline(){
+    public void getMovieOnline(){
         rvMovie = findViewById(R.id.rvMovie);
 
         String url = "https://api.themoviedb.org/3/movie/popular?api_key=5e30e788ba0016174d8c885253084699";
@@ -89,7 +89,7 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
 
         listDataMovie = new ArrayList<>();
         pbMovie = findViewById(R.id.pbMovie);
-        getEPLOnline();
+        getMovieOnline();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -114,10 +114,8 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
-            // Logout using Firebase
             firebaseAuth.signOut();
 
-            // Start LoginActivity and clear back stack
             Intent intent = new Intent(ListMovieNameActivity.this, LoginPage.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
