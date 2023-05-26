@@ -44,8 +44,10 @@ public class DetailMovie extends AppCompatActivity {
         tvMovieName = findViewById(R.id.tvMovieNameDetail);
         tvMovieName.setText(movieModel.getMovieName());
 
+        String releaseDate = getIntent().getStringExtra("release_date");
+
         tvMovieYear = findViewById(R.id.tvMovieYearDetail);
-        tvMovieYear.setText(movieModel.getMovieYear());
+        tvMovieYear.setText(releaseDate);
 
         tvMovieRate = findViewById(R.id.tvMovieRateDetail);
         tvMovieRate.setText(movieModel.getMovieRate());
