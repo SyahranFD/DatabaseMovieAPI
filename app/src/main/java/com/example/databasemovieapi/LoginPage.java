@@ -100,8 +100,8 @@ public class LoginPage extends AppCompatActivity {
                                         if (status) {
                                             Toast.makeText(getApplicationContext(), "Sukses Login", Toast.LENGTH_SHORT).show();
 
-                                            Intent calculator = new Intent(LoginPage.this, ListMovieNameActivity.class);
-                                            startActivity(calculator);
+                                            Intent listMovie = new Intent(LoginPage.this, ListMovieNameActivity.class);
+                                            startActivity(listMovie);
                                             finish();
 
                                         } else {
@@ -133,7 +133,6 @@ public class LoginPage extends AppCompatActivity {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            // User is already logged in, redirect to ListMovieNameActivity
             Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
             startActivity(intent);
             finish();
@@ -159,17 +158,14 @@ public class LoginPage extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            // Sign-in was successful, you can retrieve user details from the account object
             String name = account.getDisplayName();
             String email = account.getEmail();
-            // ...
+
             Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
             startActivity(intent);
 
-            // Finish MainActivity if needed
             finish();
         } catch (ApiException e) {
-            // Sign-in failed, handle the exception
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
         }
     }
