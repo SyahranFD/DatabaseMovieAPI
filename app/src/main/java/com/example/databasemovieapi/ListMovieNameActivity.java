@@ -1,11 +1,17 @@
 package com.example.databasemovieapi;
 
+import static com.example.databasemovieapi.LoginPage.EMAIL_KEY;
+import static com.example.databasemovieapi.LoginPage.PASSWORD_KEY;
+import static com.example.databasemovieapi.LoginPage.SHARED_PREFS;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +43,7 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
     private Toolbar toolbar;
     private FirebaseAuth firebaseAuth;
 
+    SharedPreferences sharedpreferences;
 
     public void getMovieOnline(){
         rvMovie = findViewById(R.id.rvMovie);
@@ -99,6 +106,8 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
         setSupportActionBar(toolbar);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
     }
 
 
@@ -120,6 +129,7 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
         intent.putExtra("myMovie", movie);
         intent.putExtra("release_date", releaseDate);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -131,10 +141,15 @@ public class ListMovieNameActivity extends AppCompatActivity implements MovieAda
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_logout) {
+            // Menghapus data dari SharedPreferences
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.remove(EMAIL_KEY);
+            editor.remove(PASSWORD_KEY);
+            editor.apply();
+
             firebaseAuth.signOut();
 
             Intent intent = new Intent(ListMovieNameActivity.this, LoginPage.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
             return true;

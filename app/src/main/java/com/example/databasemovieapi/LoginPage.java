@@ -2,7 +2,9 @@ package com.example.databasemovieapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,19 @@ import org.json.JSONObject;
 
 public class LoginPage extends AppCompatActivity {
 
+    // creating constant keys for shared preferences.
+    public static final String SHARED_PREFS = "shared_prefs";
+
+    // key for storing email.
+    public static final String EMAIL_KEY = "email_key";
+
+    // key for storing password.
+    public static final String PASSWORD_KEY = "password_key";
+
+    // variable for shared preferences.
+    public SharedPreferences sharedpreferences;
+    String email, password;
+
     private static final String TAG = "LoginPage";
     private static final int RC_SIGN_IN_GOOGLE = 123;
 
@@ -41,14 +56,14 @@ public class LoginPage extends AppCompatActivity {
     private TextView tvRegisterHere;
 
     private GoogleSignInClient mGoogleSignInClient;
-    private FirebaseAuth firebaseAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        checkLogin();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -61,6 +76,11 @@ public class LoginPage extends AppCompatActivity {
         pbLogin = findViewById(R.id.pbRegister);
         btnGoogle = findViewById(R.id.btnGoogle);
         tvRegisterHere = findViewById(R.id.tvRegisterHere);
+
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        email = sharedpreferences.getString(EMAIL_KEY, null);
+        password = sharedpreferences.getString(PASSWORD_KEY, null);
+
 
         tvRegisterHere.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +120,16 @@ public class LoginPage extends AppCompatActivity {
                                         if (status) {
                                             Toast.makeText(getApplicationContext(), "Sukses Login", Toast.LENGTH_SHORT).show();
 
+                                            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                                            // below two lines will put values for
+                                            // email and password in shared preferences.
+                                            editor.putString(EMAIL_KEY, etUsername.getText().toString());
+                                            editor.putString(PASSWORD_KEY, etPassword.getText().toString());
+
+                                            // to save our data with key and value.
+                                            editor.apply();
+
                                             Intent listMovie = new Intent(LoginPage.this, ListMovieNameActivity.class);
                                             startActivity(listMovie);
                                             finish();
@@ -131,13 +161,6 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        Log.d(TAG, "Current user: " + currentUser);
     }
 
     private void signInWithGoogle() {
@@ -161,12 +184,36 @@ public class LoginPage extends AppCompatActivity {
             String name = account.getDisplayName();
             String email = account.getEmail();
 
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+
+            // below two lines will put values for
+            // email and password in shared preferences.
+            editor.putString(EMAIL_KEY, name);
+            editor.putString(PASSWORD_KEY, email);
+
+            // to save our data with key and value.
+            editor.apply();
+
             Intent intent = new Intent(LoginPage.this, ListMovieNameActivity.class);
             startActivity(intent);
 
             finish();
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    private void checkLogin() {
+        sharedpreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
+        email = sharedpreferences.getString(EMAIL_KEY, null);
+        password = sharedpreferences.getString(PASSWORD_KEY, null);
+
+        // Mengecek apakah email dan kata sandi ada dalam SharedPreferences
+        if (email != null && password != null) {
+            // Jika email dan kata sandi ada, langsung buka halaman berikutnya
+            Intent listMovie = new Intent(LoginPage.this, ListMovieNameActivity.class);
+            startActivity(listMovie);
+            finish();
         }
     }
 

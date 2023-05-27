@@ -2,7 +2,9 @@ package com.example.databasemovieapi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,14 +43,12 @@ public class RegisterPage extends AppCompatActivity {
     private TextView tvLoginHere;
 
     private GoogleSignInClient mGoogleSignInClient;
-    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        firebaseAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -80,6 +80,7 @@ public class RegisterPage extends AppCompatActivity {
                 String password = etPassword.getText().toString();
                 String fullName = etFullName.getText().toString();
                 String email = etEmail.getText().toString();
+
 
                 if (username.isEmpty() || password.isEmpty() || fullName.isEmpty() || email.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Isi Data Dengan Lengkap", Toast.LENGTH_SHORT).show();
@@ -137,13 +138,6 @@ public class RegisterPage extends AppCompatActivity {
             }
         });
 
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(RegisterPage.this, ListMovieNameActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        Log.d(TAG, "Current user: " + currentUser);
     }
 
     private void signInWithGoogle() {
@@ -164,8 +158,8 @@ public class RegisterPage extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            String name = account.getDisplayName();
-            String email = account.getEmail();
+//            String name = account.getDisplayName();
+//            String email = account.getEmail();
 
             Intent intent = new Intent(RegisterPage.this, ListMovieNameActivity.class);
             startActivity(intent);

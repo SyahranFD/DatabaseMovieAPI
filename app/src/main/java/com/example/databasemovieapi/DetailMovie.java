@@ -29,6 +29,7 @@ public class DetailMovie extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailMovie.this, ListMovieNameActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
